@@ -3,14 +3,16 @@ print("Bienvenue dans le jeu du motus")
 print("Devinez le mot en 5 tentatives\n")
 
 vie = 5
-actuel_fix = [" "] * len(us)  # Initialise tableau fixes
+actuel_fix = [""] * len(us)  # Initialise tableau fixes
 while vie > 0:
     print("Tentative restantes: " + str(vie))
-    print("Mot actuel : " + "".join(actuel_fix))  # Affiche tableau fix en un seul mots
+    motactu="".join([f"[{j}]" for j in actuel_fix])  # Affiche tableau fix en un seul mots
+    print("Mot actuel:", motactu)
     motin = input("Entrez un mot de 5 lettres : ")
 
     if len(motin) != 5:
         print("Veuillez introduire un mot de 5 lettres.\n")
+        vie = vie - 1
         continue
 
     if motin == us:
@@ -22,11 +24,11 @@ while vie > 0:
         if motin[i] == us[i]:
             actuel_tmp = actuel_tmp + "[" + motin[i] + "]"
             actuel_fix[i] = motin[i]  # Mise à jour lettres fixes
-        elif actuel_fix[i] != " ":
-            actuel_tmp = actuel_tmp + "[" + actuel_fix[i] + "]"  # Utilise les lettres fixes déjà découvertes
+        elif actuel_fix[i] == "":
+            actuel_tmp = actuel_tmp + "[]"  # Utilise les lettres fixes déjà découvertes
 
-    print("Mauvaise proposition, mot actuel : " + actuel_tmp + "\n")
-    vie -= 1
+    print("Mauvaise proposition, mot actuel: " + actuel_tmp + "\n")
+    vie = vie - 1
 
     if vie == 0:
-        print("Fin du jeu, plus aucune vie restante. Le mot était : " + us)
+        print("Fin du jeu, plus aucune vie restante.")
